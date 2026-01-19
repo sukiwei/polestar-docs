@@ -1,0 +1,20 @@
+# Polestar 芯片规格
+
+**Polestar N100** 是一款专为边缘计算设计的高能效 AI SoC。
+
+## 关键特性 (Highlights)
+- **高算力 NPU**: 128 TOPS (Int8) 稀疏化算力
+- **异构架构**: 8-core ARM Cortex-A78 + 自研 Tensor Core
+- **超低功耗**: 典型功耗仅 15W @ 1.2GHz
+- **接口丰富**: 支持 PCIe Gen4 x16, MIPI CSI-2 (4路摄像头输入)
+
+## 硬件框图
+> (此处建议插入芯片 Block Diagram 图片)
+
+## 性能指标
+
+| 精度类型 | 算力 (TOPS) | 内存带宽 |
+| :--- | :--- | :--- |
+| Int8 | 128 | 64 GB/s |
+| FP16 | 64 | 64 GB/s |
+| BF16 | 64 | 64 GB/s |

@@ -1,0 +1,41 @@
+# SDK 快速入门
+
+Polestar SDK 提供了模型转换工具 (`pst-convert`) 和运行时库 (`libpolestar`)。
+
+## 编译模型
+在使用芯片推理前，需要将 PyTorch/ONNX 模型转换为 Polestar 专用的 `.om` 格式。
+
+```bash  
+# 命令行工具转换示例  
+pst-convert --model resnet50.onnx \
+            --input_shape 1,3,224,224 \
+            --output resnet50_n100.om \
+            --precision int8  
+```
+
+## Python 推理示例
+在开发板上运行以下 Python 代码调用 NPU：
+
+```python  
+import polestar_runtime as pst  
+import numpy as np  
+
+# 1. 初始化 NPU 设备  
+device = pst.Device(id=0)  
+context = pst.Context(device)  
+
+# 2. 加载离线模型 (.om)  
+model = context.load_model("resnet50_n100.om")  
+
+# 3. 准备输入数据 (模拟一张图片)  
+input_data = np.random.randn(1, 3, 224, 224).astype(np.float32)  
+
+# 4. 执行推理 (Offload 到 NPU)  
+outputs = model.execute([input_data])  
+
+print(f"推理完成，输出维度: {outputs[0].shape}")  
+print(f"NPU 耗时: {model.last_inference_time} ms")  
+
+
+
+
